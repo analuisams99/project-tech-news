@@ -1,3 +1,4 @@
+from typing import Counter
 from tech_news.database import find_news
 
 
@@ -18,4 +19,13 @@ def top_5_news():
 
 # Requisito 11
 def top_5_categories():
-    """Seu código deve vir aqui"""
+    top_categories = []
+    news_list = find_news()
+
+    for new in news_list:
+        top_categories.append(new["category"])
+
+    categories = Counter(sorted(top_categories))
+    sorted_categories = sorted(categories, key=categories.get, reverse=True)
+
+    return sorted_categories
